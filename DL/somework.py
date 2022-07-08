@@ -51,6 +51,13 @@ def load_data_fashion_mnist(batch_size, resize=None):  #@save
                             num_workers=8),
             data.DataLoader(mnist_test, batch_size, shuffle=False,
                             num_workers=8))
+def cross_entropy(y_hat,y):
+    return - torch.log(y_hat[range(len(y_hat)),y])
+
+def softmax(input):
+    fenzi = torch.exp(input)
+    fenmu = torch.sum(fenzi,dim=1,keepdim=True)
+    return fenzi/fenmu # 这里应用了广播机制
 
 def accuracy(y_hat, y):  #@save
     """计算预测正确的数量"""
@@ -106,6 +113,7 @@ def train_epoch_ch3(net, train_iter, loss, updater):  #@save
             l.sum().backward()
             updater(X.shape[0])
         metric.add(float(l.sum()), accuracy(y_hat, y), y.numel())
+    print(f'epoch done, loss {(metric[0] / metric[2]):f} ,ACC{(metric[1] / metric[2]):f}')
     # 返回训练损失和训练精度
     return metric[0] / metric[2], metric[1] / metric[2]
 
