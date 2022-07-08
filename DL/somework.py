@@ -17,7 +17,8 @@ def data_iter(batch_size,feature,label):
     for i in range(0,num_examples,batch_size):
         batch_indices = indices[i:min(i+batch_size,num_examples)]
         yield feature[batch_indices],label[batch_indices]
-
+def squared_loss(y_hat, y):
+    return (y.reshape(y_hat.shape)-y_hat)**2/2
 def sgd(params, lr, batch_size):
     with torch.no_grad():
         for param in params:
