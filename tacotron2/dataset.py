@@ -1,8 +1,8 @@
 import os
 import torch
 import numpy as np
-from torch.utils.data import Dataset,DataLoader
-from hparams import hparams
+from torch.utils.data import Dataset
+
 
 class Tacotron2_Dataset(Dataset):
     def __init__(self,para):

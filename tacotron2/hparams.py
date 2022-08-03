@@ -9,7 +9,7 @@ class hparams():
         self.path_wav = '/home/oem/datasets/BZNSYP/Wave'
         self.file_trans = '/home/oem/datasets/BZNSYP/ProsodyLabeling/000001-010000.txt'
 
-        self.path_fea = 'data_fea'
+        self.path_fea = '/media/oem/E1941D8D59CA2E68/TTS-Tacotron2/data_fea'
         self.path_scp = 'scp'
         self.train_scp = 'scp/train.scp'
         self.path_save = 'save2'
