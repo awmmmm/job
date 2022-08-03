@@ -8,7 +8,7 @@ import librosa
 from preprocess import pinyin_2_phoneme
 from xpinyin import Pinyin
 
-def text2speech(model,para,coded_text_in,device):
+def text2speech(m_model,para,coded_text_in,device):
     
     text_in = torch.from_numpy(coded_text_in)
     text_in = text_in.unsqueeze(0).to(device)
@@ -68,11 +68,14 @@ if __name__ == "__main__":
     m_model_all = torch.load(os.path.join('save2',str(n_model),'model.pick'))
     
     m_model = Tacotron2(para)
+    # print(m_model)
+    # print(m_model.named_modules())
     m_model.to(device)
     m_model.load_state_dict(m_model_all['model'])
     
     m_model.eval()
-    
+    m_model.decoder.prenet.train()
+    # def make
     path_save = os.path.join('eval',str(n_model))
     os.makedirs(path_save,exist_ok = True)
     
@@ -86,7 +89,7 @@ if __name__ == "__main__":
     # 生成语音
     wav_out = text2speech(m_model,para,np.array(coded_text),device)
     wav_out = wav_out/max(wav_out)    
-    sf.write(os.path.join(path_save,'2.wav'),wav_out,para.fs)
+    sf.write(os.path.join(path_save,'eval.wav'),wav_out,para.fs)
             
     
    
